@@ -12,6 +12,7 @@
 		0394F6C51B4AB4330025DCB6 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0394F6C41B4AB4330025DCB6 /* libstdc++.dylib */; };
 		0394F6C71B4AB43C0025DCB6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0394F6C61B4AB43C0025DCB6 /* CoreImage.framework */; };
 		03B576EB1B4AA28D00F1E05B /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B576EA1B4AA28D00F1E05B /* TesseractOCR.framework */; };
+		03E0A9371B4E72F200159AF0 /* Gleisanzeiger.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03E0A9361B4E72F200159AF0 /* Gleisanzeiger.jpg */; };
 		35791CBF171588890011FD1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35791CBE171588890011FD1F /* UIKit.framework */; };
 		35791CC1171588890011FD1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35791CC0171588890011FD1F /* Foundation.framework */; };
 		35791CC3171588890011FD1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35791CC2171588890011FD1F /* CoreGraphics.framework */; };
@@ -31,6 +32,7 @@
 		0394F6C41B4AB4330025DCB6 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		0394F6C61B4AB43C0025DCB6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		03B576EA1B4AA28D00F1E05B /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		03E0A9361B4E72F200159AF0 /* Gleisanzeiger.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Gleisanzeiger.jpg; sourceTree = "<group>"; };
 		35791CBB171588890011FD1F /* CameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35791CBE171588890011FD1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35791CC0171588890011FD1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,6 +124,7 @@
 				35791CD0171588890011FD1F /* Default.png */,
 				35791CD2171588890011FD1F /* Default@2x.png */,
 				35791CD4171588890011FD1F /* Default-568h@2x.png */,
+				03E0A9361B4E72F200159AF0 /* Gleisanzeiger.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				35791CD3171588890011FD1F /* Default@2x.png in Resources */,
 				35791CD5171588890011FD1F /* Default-568h@2x.png in Resources */,
 				35791CDB171588890011FD1F /* APPViewController.xib in Resources */,
+				03E0A9371B4E72F200159AF0 /* Gleisanzeiger.jpg in Resources */,
 				0394A0E21B41962E002F0337 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

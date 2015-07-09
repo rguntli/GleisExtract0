@@ -18,7 +18,11 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.    
+	// Do any additional setup after loading the view, typically from a nib.
+    
+    // set default photo
+    selectedImage = [UIImage imageNamed:@"Gleisanzeiger.jpg"];
+    self.imageView.image = selectedImage;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -48,33 +52,6 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 - (IBAction)recGleis:(id)sender {
-    
-//    
-//    // 1
-//    let tesseract = G8Tesseract()
-//    
-//    // 2
-//    tesseract.language = "eng+fra"
-//    
-//    // 3
-//    tesseract.engineMode = .TesseractCubeCombined
-//    
-//    // 4
-//    tesseract.pageSegmentationMode = .Auto
-//    
-//    // 5
-//    tesseract.maximumRecognitionTime = 60.0
-//    
-//    // 6
-//    tesseract.image = image.g8_blackAndWhite()
-//    tesseract.recognize()
-//    
-//    // 7
-//    textView.text = tesseract.recognizedText
-//    textView.editable = true
-//    
-//    // 8
-//    removeActivityIndicator()
     
     // do the tesseract magic
     G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
