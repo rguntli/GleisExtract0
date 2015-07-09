@@ -292,6 +292,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CameraApp/CameraApp-Prefix.pch";
 				INFOPLIST_FILE = "CameraApp/CameraApp-Info.plist";
@@ -311,6 +312,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CameraApp/CameraApp-Prefix.pch";
 				INFOPLIST_FILE = "CameraApp/CameraApp-Info.plist";
