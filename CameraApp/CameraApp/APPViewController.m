@@ -91,12 +91,18 @@
     UIImageToMat(selectedImage, cvImage);
     
     if (!cvImage.empty()) {
-        cv::Mat gray;
-        // Convert the image to grayscale
-        cv::cvtColor(cvImage, gray, CV_RGBA2GRAY);
+        cv::Mat imgHalfSize1;
+        cv::Mat imgHalfSize2;
+        cv::Mat imgHalfSize2Gray;
         
+        cv::pyrDown(cvImage, imgHalfSize1);
+        cv::pyrDown(imgHalfSize1, imgHalfSize2);
+        
+        // Convert the image to grayscale
+        cv::cvtColor(imgHalfSize2, imgHalfSize2Gray, CV_RGBA2GRAY);
+
         // Convert cv::Mat to UIImage* and show the resulting image
-        selectedImage = MatToUIImage(gray);
+        selectedImage = MatToUIImage(imgHalfSize2Gray);
         self.imageView.image = selectedImage;
     }
 
