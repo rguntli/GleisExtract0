@@ -2,6 +2,10 @@
 // Prefix header for all source files of the 'CameraApp' target in the 'CameraApp' project
 //
 
+#ifdef __cplusplus
+#import <opencv2/opencv.hpp>
+#endif
+
 #import <Availability.h>
 
 #ifndef __IPHONE_4_0
