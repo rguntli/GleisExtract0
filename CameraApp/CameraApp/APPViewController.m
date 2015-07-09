@@ -109,4 +109,21 @@
     
 }
 
+- (IBAction)openCV:(UIButton *)sender {
+    // Convert UIImage* to cv::Mat
+    UIImageToMat(selectedImage, cvImage);
+    
+    if (!cvImage.empty()) {
+        cv::Mat gray;
+        // Convert the image to grayscale
+        cv::cvtColor(cvImage, gray, CV_RGBA2GRAY);
+        
+        // Convert cv::Mat to UIImage* and show the resulting image
+        selectedImage = MatToUIImage(gray);
+        self.imageView.image = selectedImage;
+    }
+
+
+}
+
 @end
