@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <TesseractOCR/TesseractOCR.h>
 #import <TesseractOCR/G8Constants.h>
+#import "opencv2/imgcodecs/ios.h"
 
 
-@interface APPViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface APPViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+    cv::Mat cvImage;
+}
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property UIImage *selectedImage;
