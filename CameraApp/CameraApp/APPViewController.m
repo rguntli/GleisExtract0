@@ -18,7 +18,11 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.    
+	// Do any additional setup after loading the view, typically from a nib.
+    
+    // set default photo
+    selectedImage = [UIImage imageNamed:@"Gleisanzeiger.jpg"];
+    self.imageView.image = selectedImage;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -48,33 +52,6 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 - (IBAction)recGleis:(id)sender {
-    
-//    
-//    // 1
-//    let tesseract = G8Tesseract()
-//    
-//    // 2
-//    tesseract.language = "eng+fra"
-//    
-//    // 3
-//    tesseract.engineMode = .TesseractCubeCombined
-//    
-//    // 4
-//    tesseract.pageSegmentationMode = .Auto
-//    
-//    // 5
-//    tesseract.maximumRecognitionTime = 60.0
-//    
-//    // 6
-//    tesseract.image = image.g8_blackAndWhite()
-//    tesseract.recognize()
-//    
-//    // 7
-//    textView.text = tesseract.recognizedText
-//    textView.editable = true
-//    
-//    // 8
-//    removeActivityIndicator()
     
     // do the tesseract magic
     G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
@@ -114,12 +91,18 @@
     UIImageToMat(selectedImage, cvImage);
     
     if (!cvImage.empty()) {
-        cv::Mat gray;
-        // Convert the image to grayscale
-        cv::cvtColor(cvImage, gray, CV_RGBA2GRAY);
+        cv::Mat imgHalfSize1;
+        cv::Mat imgHalfSize2;
+        cv::Mat imgHalfSize2Gray;
         
+        cv::pyrDown(cvImage, imgHalfSize1);
+        cv::pyrDown(imgHalfSize1, imgHalfSize2);
+        
+        // Convert the image to grayscale
+        cv::cvtColor(imgHalfSize2, imgHalfSize2Gray, CV_RGBA2GRAY);
+
         // Convert cv::Mat to UIImage* and show the resulting image
-        selectedImage = MatToUIImage(gray);
+        selectedImage = MatToUIImage(imgHalfSize2Gray);
         self.imageView.image = selectedImage;
     }
 
