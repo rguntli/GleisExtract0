@@ -15,6 +15,9 @@
 @implementation APPViewController
 
 @synthesize selectedImage;
+@synthesize slideVal;
+@synthesize slider;
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -23,12 +26,17 @@
     // set default photo
     selectedImage = [UIImage imageNamed:@"Gleisanzeiger.jpg"];
     self.imageView.image = selectedImage;
+    self.slideVal = @(slider.value);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
     [super viewDidAppear:animated];
-    
+}
+
+-(IBAction)slideEnd:(UISlider *)sender {
+    float f = sender.value;
+    slideVal = @(f);
+    [self openCV:nil];
 }
 
 - (IBAction)takePhoto:(UIButton *)sender {
@@ -51,18 +59,45 @@
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
-- (IBAction)recGleis:(id)sender {
+- (IBAction)tessText:(id)sender {
     
     // do the tesseract magic
     G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
     tesseract.engineMode = G8OCREngineModeTesseractCubeCombined;
-    tesseract.pageSegmentationMode = G8PageSegmentationModeAuto;
+    tesseract.pageSegmentationMode = G8PageSegmentationModeSparseText;
     tesseract.maximumRecognitionTime = 30.0;
     //tesseract.image = self.selectedImage.g8_blackAndWhite; does not work yet!!
-    tesseract.image = self.selectedImage;
-    tesseract.recognize;
-    sleep(2);
+    tesseract.image = self.imageView.image;
+    [tesseract recognize];
+    NSString *gleis = @"not yet possible";
+    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Gleis" message:tesseract.recognizedText delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [myAlert show];
+}
+
+- (IBAction)tessWord:(id)sender {
     
+    // do the tesseract magic
+    G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
+    tesseract.engineMode = G8OCREngineModeTesseractCubeCombined;
+    tesseract.pageSegmentationMode = G8PageSegmentationModeSingleWord;
+    tesseract.maximumRecognitionTime = 30.0;
+    //tesseract.image = self.selectedImage.g8_blackAndWhite; does not work yet!!
+    tesseract.image = self.imageView.image;
+    [tesseract recognize];
+    NSString *gleis = @"not yet possible";
+    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Gleis" message:tesseract.recognizedText delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [myAlert show];
+}
+
+- (IBAction)tessChar:(id)sender {
+    
+    // do the tesseract magic
+    G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
+    tesseract.engineMode = G8OCREngineModeTesseractCubeCombined;
+    tesseract.pageSegmentationMode = G8PageSegmentationModeSingleChar;
+    tesseract.maximumRecognitionTime = 30.0;
+    //tesseract.image = self.selectedImage.g8_blackAndWhite; does not work yet!!
+    tesseract.image = self.imageView.image;
     [tesseract recognize];
     NSString *gleis = @"not yet possible";
     UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Gleis" message:tesseract.recognizedText delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -94,6 +129,11 @@
         cv::Mat imgHalfSize1;
         cv::Mat imgHalfSize2;
         cv::Mat imgHalfSize2Gray;
+        cv::Mat imgBW;
+        cv::Mat imgBWThresh;
+        cv::Mat imgBWVectors;
+        cv::Mat imgContours;
+
         
         cv::pyrDown(cvImage, imgHalfSize1);
         cv::pyrDown(imgHalfSize1, imgHalfSize2);
@@ -101,9 +141,36 @@
         // Convert the image to grayscale
         cv::cvtColor(imgHalfSize2, imgHalfSize2Gray, CV_RGBA2GRAY);
 
+        
+        //imgBW = cv::threshold(cvImage, 127, 255, cv::THRESH_BINARY)[1];
+        //cv::threshold(cvImage, imgBW, 127, cv::THRESH_BINARY, c);
+        
+       // [[cvtColor(orig, cv2.COLOR_BGR2GRAY)]
+        
+        cv::cvtColor(cvImage, imgBW, cv::COLOR_BGR2GRAY);
+        //cv::threshold(imgBW, imgBW2, cv::THRESH_BINARY, 127, 255);
+        //cv::threshold(imgBW, imgBW2, 0.7, 1, cv::THRESH_BINARY);
+        cv::threshold(imgBW, imgBWThresh, [slideVal doubleValue], 255.0, cv::THRESH_BINARY_INV);
+        //cv::cvtColor(imgBW2, imgBW3, cv::COLOR_BGR2GRAY);
+
+        imgBWVectors = imgBWThresh.clone();
+        
+        std::vector<std::vector<cv::Point>> contours;
+        cv::findContours(imgBWVectors, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE); //will find all
+//        
+//        for (int i = 0; i<contours.size(); i++) {
+//            cv::draw
+//        }
+        
+        //cv::drawContours(InputOutputArray image, contours, <#int contourIdx#>, <#const Scalar &color#>)
+    
+        cv::pyrDown(imgBWThresh, imgHalfSize1);
+        cv::pyrDown(imgHalfSize1, imgHalfSize2);
+        
         // Convert cv::Mat to UIImage* and show the resulting image
-        selectedImage = MatToUIImage(imgHalfSize2Gray);
-        self.imageView.image = selectedImage;
+        //selectedImage = MatToUIImage(imgBW2);
+        self.imageView.image = MatToUIImage(imgHalfSize2);
+        self.imageView2.image = MatToUIImage(imgBWVectors);
     }
 
 
